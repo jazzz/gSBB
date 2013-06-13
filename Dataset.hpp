@@ -32,6 +32,9 @@ public:
     void copyTestingPointToMatrix( _pointId pid, _point* pointMatrix);
 
     vector<_pointLabel> getLabelVector();
+    vector<_pointLabel> getPrepLabelVector();
+
+    long getPrepLabelCount(_pointLabel l);
     long getTrainingLabelCount(_pointLabel l);
     long getTestingLabelCount( _pointLabel l);
     long numLabels();
@@ -49,22 +52,30 @@ public:
     long size_training;
     long size_testing;
 
+    long windowStart;
+    long windowEnd;
+
 
 //private:
     //set<long> usedTrainingPointIds;
     //set<long> usedTestingPointIds;
 
+    vector<_pointLabel> prepLabelVector;
     vector<_pointLabel> labelVector;
     map<_pointLabel,_pointLabel> labelTranslationMap;
 
    // map<_pointId,pair<_point *, _pointLabel>* > pointSet;
 
     // Remap PointSet to _point* Matrix . Index == _pointId
+    _point* prepPointSet;
     _point* trainingPointSet;
     _point* testingPointSet;
+
+    _pointLabel* prepPointSetLabels;
     _pointLabel* testingPointSetLabels;
     _pointLabel* trainingPointSetLabels;
 
+    map<_pointLabel, vector<_pointId>* > prepLabelMap;
     map<_pointLabel, vector<_pointId>* > trainingLabelMap;
     map<_pointLabel, vector<_pointId>* > testingLabelMap;
 

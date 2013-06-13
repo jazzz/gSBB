@@ -47,8 +47,8 @@ int main(int argc, char **argv)
         gettimeofday(&start, NULL);
         //=======================================
 
-        //model->run();
-        model->runTests();
+        model->run();
+        //model->runTests();
 
         //=======================================
         gettimeofday(&end, NULL);

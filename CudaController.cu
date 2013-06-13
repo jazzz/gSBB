@@ -1252,12 +1252,12 @@ void PTeamSelectParetoSerial(bool mode, bool* front, float* scores, int rowCount
 
 	}
 //
-	printf("\nNot Sorted  ");
-		for(int i =0; i <hIndex.size();i++)
-			{
-				printf("  $%d::%f ",hIndex[i], hScores[i]);
-			}
-		printf("\n");
+//	printf("\nNot Sorted  ");
+//		for(int i =0; i <hIndex.size();i++)
+//			{
+//				printf("  $%d::%f ",hIndex[i], hScores[i]);
+//			}
+//		printf("\n");
 	for(int i= hIndex.size()-1; i > 0 ;i--)
 	{
 		for(int j=0; j < i;j++)
@@ -1275,20 +1275,20 @@ void PTeamSelectParetoSerial(bool mode, bool* front, float* scores, int rowCount
 			}
 		}
 	}
-printf("\nSoreted  ");
-	for(int i =0; i <hIndex.size();i++)
-		{
-			printf("  $%d::%f ",hIndex[i], hScores[i]);
-		}
-	printf("\n");
+//printf("\nSoreted  ");
+//	for(int i =0; i <hIndex.size();i++)
+//		{
+//			printf("  $%d::%f ",hIndex[i], hScores[i]);
+//		}
+//	printf("\n");
 
-	printf("DELETE");
-	for(int i=0; i < nrem;i++)
-	{
-		printf("   %d", hIndex[i]);
-		toDel->push_back(hIndex[i]);
-	}
-	printf("\n");
+//	printf("DELETE");
+//	for(int i=0; i < nrem;i++)
+//	{
+//		printf("   %d", hIndex[i]);
+//		toDel->push_back(hIndex[i]);
+//	}
+//	printf("\n");
 
 	//dFrontMask = hFrontMask;
 	//int result = thrust::count(dFrontMask.begin(), dFrontMask.end(), 1);
@@ -1622,22 +1622,22 @@ __host__ int findFront( _teamReward* dData,int rowCount, int colCount, bool* dFr
 		}
 
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
-	printf("selPoints F: ");
-	for(int i=0; i< rowCount;i++)
-	{
-		if(front[i])
-		{
-			printf(" %d", i);
-		//	frontCount++;
-		}
-	}
-	printf("\nselPoints D: ");
-	for(int i=0; i< rowCount;i++)
-	{
-		if(!front[i])
-			printf(" %d", i);
-	}
-	printf("\n");
+//	printf("selPoints F: ");
+//	for(int i=0; i< rowCount;i++)
+//	{
+//		if(front[i])
+//		{
+//			printf(" %d", i);
+//		//	frontCount++;
+//		}
+//	}
+//	printf("\nselPoints D: ");
+//	for(int i=0; i< rowCount;i++)
+//	{
+//		if(!front[i])
+//			printf(" %d", i);
+//	}
+//	printf("\n");
 //	// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	 cudaFree( dTmpDistDom);
 	 cudaFree( dTmpDistEqual);
@@ -1711,7 +1711,7 @@ __host__ void SelectTeamsGPU(int rowCount, int colCount, _teamReward* data, int 
 						hToDel->push_back(i);
 					}
 				}
-printf("###### , V:%d   = gap:%d - ( rowCount:%d - frontFoucnt:%d)\n",gapSize-(rowCount-frontCount),gapSize,rowCount,frontCount);
+//printf("###### , V:%d   = gap:%d - ( rowCount:%d - frontFoucnt:%d)\n",gapSize-(rowCount-frontCount),gapSize,rowCount,frontCount);
 				PTeamSelectParetoSerial(frontCount < keep, front,scores, rowCount,colCount, 0, gapSize-(rowCount-frontCount),hToDel);
 
 

@@ -9,10 +9,12 @@ Dataset::Dataset(int _d)
 
 }
 
+
+
 void Dataset::initTrainingSet(string _filename,long _size )
 {
 	
-	cout << "DS _SIZE:" << _size; 
+	cout << "DS _SIZE:" << _size << " " << _filename << endl;;
     filename_train = _filename;
     size_training = _size;
 
@@ -22,36 +24,62 @@ void Dataset::initTrainingSet(string _filename,long _size )
 
 
     // Allocate Memory
-    trainingPointSet = (_point*) malloc( sizeof(_point) * dim *_size);
-    trainingPointSetLabels = (_pointLabel*) malloc( sizeof(_pointLabel) *_size);
+    int _prepSetSize = 2;//_size /10;
+    int _trainSetSize = _size - _prepSetSize;
+
+//    prepPointSet           = (_point*)      malloc( sizeof(_point) * dim * _prepSetSize);
+//    trainingPointSet       = (_point*)      malloc( sizeof(_point) * dim * _trainSetSize);
+//    prepPointSetLabels     = (_pointLabel*) malloc( sizeof(_pointLabel)  * _prepSetSize);
+//    trainingPointSetLabels = (_pointLabel*) malloc( sizeof(_pointLabel)  * _trainSetSize);
 
      _pointLabel tmp_label;
-     int ps_index = 0;
+     int trainIndex = 0;
+     int prepIndex = 0;
 
-     for(long pointId=0; pointId < _size; pointId++)
-     {
+     cout << "HERE";
 
-
-         for(int d=0; d < dim ; d++)
-         {
-                _point tmp_p;
-                 infile >> tmp_p;
-                 trainingPointSet[pointId*dim+d] = tmp_p;
-
-         }
-
-         if(infile == 0)
-            die(__FILE__, __FUNCTION__,  __LINE__, "missing pattern class");
-         infile >> tmp_label;
-         trainingPointSetLabels[pointId] = tmp_label;
-
-         if(0 == trainingLabelMap.count(tmp_label)){
-             labelVector.push_back(tmp_label);
-             trainingLabelMap[tmp_label] = new vector<_pointId>();
-         }
-         trainingLabelMap[tmp_label]->push_back(pointId);
-
-     }
+//
+//     for(long pointId=0; pointId < _size; pointId++)
+//     {
+//    	 cout << _prepSetSize << "  " << _trainSetSize << endl;
+//    	 _point* dest;
+//    	 _pointLabel* destLabels;
+//    	 map<_pointLabel, vector<_pointId>* >* destLabelMap;
+//
+//    	 _pointIndex usable_pointId;
+//    	 vector<_pointLabel>* destLabelVector;
+//    	 if (drand48() < 0.1 && prepIndex < _prepSetSize){
+//    		 dest = prepPointSet;
+//    		 destLabels = prepPointSetLabels;
+//    		 destLabelMap = &prepLabelMap;
+//    		 destLabelVector = &prepLabelVector;
+//    		 usable_pointId = prepIndex++;
+//    	 }else{
+//    		 dest = trainingPointSet;
+//    		 destLabels = trainingPointSetLabels;
+//    		 destLabelMap = &trainingLabelMap;
+//    		 destLabelVector = &labelVector;
+//    		 usable_pointId = trainIndex++;
+//    	 }
+//         for(int d=0; d < dim ; d++)
+//         {
+//                _point tmp_p;
+//                 infile >> tmp_p;
+//                 dest[usable_pointId*dim+d] = tmp_p;
+//         }
+//
+//         if(infile == 0)
+//            die(__FILE__, __FUNCTION__,  __LINE__, "missing pattern class");
+//         infile >> tmp_label;
+//         destLabels[usable_pointId] = tmp_label;
+//
+//         if(0 == destLabelMap->count(tmp_label)){
+//             destLabelVector->push_back(tmp_label);
+//             (*destLabelMap)[tmp_label] = new vector<_pointId>();
+//         }
+//         (*destLabelMap)[tmp_label]->push_back(usable_pointId);
+//
+//     }
 
 
 }

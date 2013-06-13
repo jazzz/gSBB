@@ -32,7 +32,7 @@ long profile(Fptr);
 #ifdef CTSEL
 bool GPU_SELECT_TEAMS = false;
 #else
-bool GPU_SELECT_TEAMS = true;
+bool GPU_SELECT_TEAMS = false;
 #endif
 
 #ifdef CPSEL
@@ -1270,18 +1270,18 @@ void EvoControllerLean::selectTeams()
     findParetoFront(outMap,F,D,0.1);
     _teamFrontSize = F.size();
 
-
-    printf("selPoints F: ");
-    for(set<_teamIndex>::iterator it= F.begin();it!= F.end(); it++)
-        {
-    			printf(" %d", (*it));
-    	}
-    	printf("\nselPoints D: ");
-    	for(set<_teamIndex>::iterator it= D.begin();it!= D.end(); it++)
-    	    {
-    		printf(" %d", (*it));
-    	    }
-    	    cout << endl;
+//
+//    printf("selPoints F: ");
+//    for(set<_teamIndex>::iterator it= F.begin();it!= F.end(); it++)
+//        {
+//    			printf(" %d", (*it));
+//    	}
+//    	printf("\nselPoints D: ");
+//    	for(set<_teamIndex>::iterator it= D.begin();it!= D.end(); it++)
+//    	    {
+//    		printf(" %d", (*it));
+//    	    }
+//    	    cout << endl;
 
 //    cout << " TF: ";
 //    for(set<_teamIndex>::iterator it= F.begin();it!= F.end(); it++)
@@ -1366,12 +1366,12 @@ void EvoControllerLean::selectTeams()
         delete omiter->second;
     printf("TEAM SELECT END\n");
 	}
-    cout << "TO DEL2:" << teamsToDel.size() <<" ";
-    for(set<_teamIndex>::iterator it= teamsToDel.begin();it!= teamsToDel.end(); it++)
-    {
-        cout << "    " << (*it);
-    }
-    cout << endl;
+//    cout << "TO DEL2:" << teamsToDel.size() <<" ";
+//    for(set<_teamIndex>::iterator it= teamsToDel.begin();it!= teamsToDel.end(); it++)
+//    {
+//        cout << "    " << (*it);
+//    }
+//    cout << endl;
 }
 
 
