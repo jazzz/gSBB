@@ -40,8 +40,7 @@ class FreeMap
 
 };
 
-
-#include "FreeMap.cpp"
+//#include "FreeMap.cpp"
 #endif
 
 

@@ -8,7 +8,7 @@
 
 #include "defines.h"
 #include "CudaControllerFunc.cuh"
-#include "DataEngine.hpp"
+#include <DataEngine.hpp>
 
 using namespace std;
 
@@ -64,7 +64,7 @@ class EvoControllerLean
 
         void initPoints();
         void initTeams();
-
+        void generatePrepPoints();
         void generatePoints();
         void generateTeams();
 

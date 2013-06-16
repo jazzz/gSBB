@@ -28,6 +28,9 @@ public:
     ~Dataset();
 
     _pointId getUniformTrainingPointWithLabel(_pointLabel label);
+    _pointId getUniformPrepPointWithLabel(_pointLabel label);
+
+    void copyPrepPointToMatrix(_pointId pid, _point* pointMatrix);
     void copyTrainingPointToMatrix(_pointId pid, _point* pointMatrix);
     void copyTestingPointToMatrix( _pointId pid, _point* pointMatrix);
 
@@ -39,7 +42,8 @@ public:
     long getTestingLabelCount( _pointLabel l);
     long numLabels();
 
-
+    inline long getPrepSetSize()
+    { return size_prep;}
     inline long getTrainingSetSize()
     { return size_training;}
 
@@ -49,6 +53,8 @@ public:
     string filename_train;
     string filename_test;
     int dim;
+
+    long size_prep;
     long size_training;
     long size_testing;
 

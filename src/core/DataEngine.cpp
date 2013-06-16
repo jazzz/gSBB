@@ -567,6 +567,54 @@ void DataEngine::generatePoints(long _t)
   //  printPointLabelMatrix();
 }
 
+
+void DataEngine::generatePrepPoints(long _t)
+{
+    _pointLabel label=0;
+    vector<_pointLabel> labels = DS->getPrepLabelVector();
+
+    _pointId pointMatrixIndex =0;
+
+    while(pointPool->hasFreeIndex())
+    {
+
+        int __i =0;
+        do
+        {
+            label = labels[drand48() * labels.size()] ;
+            if( __i++ > 100 ) {cout << "DEAD LOCK" << endl;}
+        } while (usedPointLabelCounts[label] == DS->getPrepLabelCount(label));
+
+       _pointId pid = DS->getUniformPrepPointWithLabel(label);
+
+      // Copy Point
+       _pointId matrixIndex =  pointPool->getNextFree();
+       _point* pm = getPtrToPointMatrix(matrixIndex);
+       DS->copyPrepPointToMatrix(pid, pm);
+
+       pointIndexMap[pid] = matrixIndex;
+       indexPointMap[matrixIndex] = pid;
+       pointAge[pid] = _t;
+
+       // Copy Label
+       pointLabelMatrix[matrixIndex] = label;
+       usedPointLabelCounts[label]++;
+       newPointIndicies.push_back(matrixIndex);
+     //  cout << "Action: NEW Point [ Id: " << pid << "  index: " << matrixIndex << "  label:  " << label << "  ] " << endl;
+    }
+
+//   printf("LABEL COUNTS:      ");
+//    for (int i=0; i <= labels.size();i++)
+//    {
+//        printf("        %ld ",usedPointLabelCounts[i]);
+//    }
+//    printf("\n");
+
+
+  //  printPointLabelMatrix();
+}
+
+
 //void DataEngine::generateTeamsRaw(long _t)
 //{
 //

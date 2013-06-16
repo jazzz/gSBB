@@ -231,8 +231,7 @@ void EvoControllerLean::run()
     initTeams();
 
 	evaluate();
-    int injectTime = -2;
-    time =1;
+    time = -20;
 
     long evalTimerSum =0;
     long timerPSelect = 0;
@@ -245,21 +244,25 @@ void EvoControllerLean::run()
 
     int sumEvalCount = 0;
 
+    for(; time < 1 ; time++){
+    	timerPSelect = profile(&EvoControllerLean::selectPoints, this,"PSel");
+    	timerTSelect = profile(&EvoControllerLean::selectTeams, this,"TSel");
+    	timerCleanup = profile(&EvoControllerLean::cleanup, this,"Clean");
+    	timerPGen = profile(&EvoControllerLean::generatePrepPoints, this,"PGen");
+    	timerTGen = profile(&EvoControllerLean::generateTeams, this,"TGen");
+    	timerEval = profile(&EvoControllerLean::evaluate, this,"Eval");
+    	printf("TIMESTAT %lu %lu  %lu  %lu  %lu  %lu prep\n", timerPSelect , timerTSelect, timerCleanup,timerPGen , timerTGen, timerEval);
+    }
+
     for(; time < DE->trainingGenerations; time++)
     {
     	printf("GENERATION: %d\n", time);
         timerPSelect = profile(&EvoControllerLean::selectPoints, this,"PSel");
-
         timerTSelect = profile(&EvoControllerLean::selectTeams, this,"TSel");
-
         timerCleanup = profile(&EvoControllerLean::cleanup, this,"Clean");
-
         timerPGen = profile(&EvoControllerLean::generatePoints, this,"PGen");
-
         timerTGen = profile(&EvoControllerLean::generateTeams, this,"TGen");
-
         timerEval = profile(&EvoControllerLean::evaluate, this,"Eval");
-
         printf("TIMESTAT %lu %lu  %lu  %lu  %lu  %lu\n", timerPSelect , timerTSelect, timerCleanup,timerPGen , timerTGen, timerEval);
 
     }
@@ -291,6 +294,11 @@ void EvoControllerLean::initTeams()
 void EvoControllerLean::generatePoints()
 {
    DE->generatePoints(time);
+}
+
+void EvoControllerLean::generatePrepPoints()
+{
+   DE->generatePrepPoints(time);
 }
 
 void EvoControllerLean::generateTeams()
@@ -548,21 +556,21 @@ template < class ptype > void EvoControllerLean::selParetoDebug(set < ptype  > &
       //(*ptiter).key((score.find(*ptiter))->second);
       //ptvec.push_back(*ptiter);
     }
-  cout << "PTVEC Init: " ;
-  for(ptv_it = ptvec.begin(); ptv_it != ptvec.end(); ptv_it++)
-  {
-        cout << "   " << (*ptv_it).first << ":" << (*ptv_it).second;
-  }
-  cout << endl;
+//  cout << "PTVEC Init: " ;
+//  for(ptv_it = ptvec.begin(); ptv_it != ptvec.end(); ptv_it++)
+//  {
+//        cout << "   " << (*ptv_it).first << ":" << (*ptv_it).second;
+//  }
+//  cout << endl;
 
  // partial_sort(ptvec.begin(), ptvec.begin() + nrem, ptvec.end(), lessThan < ptype > () );
   partial_sort(ptvec.begin(), ptvec.begin() + nrem, ptvec.end(),compare_pair_second<std::less>() );
- cout << "PTVEC Sort: " ;
-  for(ptv_it = ptvec.begin(); ptv_it != ptvec.end(); ptv_it++)
-  {
-        cout << "   " << (*ptv_it).first << ":" << (*ptv_it).second;
-  }
-  cout << endl;
+// cout << "PTVEC Sort: " ;
+//  for(ptv_it = ptvec.begin(); ptv_it != ptvec.end(); ptv_it++)
+//  {
+//        cout << "   " << (*ptv_it).first << ":" << (*ptv_it).second;
+//  }
+//  cout << endl;
 
 //  toDel.insert(ptvec.begin(), ptvec.begin() + nrem);
    for(ptv_it = ptvec.begin(); ptv_it != ptvec.begin() + nrem; ptv_it++)
@@ -570,12 +578,12 @@ template < class ptype > void EvoControllerLean::selParetoDebug(set < ptype  > &
 toDel.insert( (*ptv_it).first);
   }
 
-  cout << "PTVEC FirstN: " ;
-  for(ptv_it = ptvec.begin(); ptv_it != ptvec.begin()+nrem; ptv_it++)
-  {
-        cout << "   " << (*ptv_it).first << ":" << (*ptv_it).second;
-  }
-  cout << endl;
+//  cout << "PTVEC FirstN: " ;
+//  for(ptv_it = ptvec.begin(); ptv_it != ptvec.begin()+nrem; ptv_it++)
+//  {
+//        cout << "   " << (*ptv_it).first << ":" << (*ptv_it).second;
+//  }
+//  cout << endl;
 
 #ifdef MYDEBUG
   cout << "scm::selPareto " << nrem << "/" << from.size();
